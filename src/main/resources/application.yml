@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://15.165.34.151:5432/mtc_db
+    username: team9
+    password: cocteam9(
+    driver-class-name: org.postgresql.Driver
