@@ -20,7 +20,7 @@ package:
     variables:
       - $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   tags:
-    - runner3
+    - runner9
 
 
 
@@ -43,7 +43,7 @@ docker_build:
     variables:
       - $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   tags:
-    - runner3
+    - runner9
 
 deploy:
   image:
@@ -66,5 +66,5 @@ deploy:
     variables:
       - $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   tags:
-    - runner3
+    - runner9
 
