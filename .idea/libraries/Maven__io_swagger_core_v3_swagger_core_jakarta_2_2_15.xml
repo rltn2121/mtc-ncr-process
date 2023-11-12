@@ -1,5 +1,6 @@
 <component name="libraryTable">
-  <library name="Maven: io.swagger.core.v3:swagger-core-jakarta:2.2.15">
+  <library name="Maven: io.swagger.core.v3:swagger-core-jakarta:2.2.15" type="java-imported" external-system-id="Maven">
+    <properties groupId="io.swagger.core.v3" artifactId="swagger-core-jakarta" version="2.2.15" />
     <CLASSES>
       <root url="jar://$MAVEN_REPOSITORY$/io/swagger/core/v3/swagger-core-jakarta/2.2.15/swagger-core-jakarta-2.2.15.jar!/" />
     </CLASSES>

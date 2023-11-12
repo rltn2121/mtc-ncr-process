@@ -1,5 +1,6 @@
 <component name="libraryTable">
-  <library name="Maven: org.hamcrest:hamcrest-core:2.2">
+  <library name="Maven: org.hamcrest:hamcrest-core:2.2" type="java-imported" external-system-id="Maven">
+    <properties groupId="org.hamcrest" artifactId="hamcrest-core" version="2.2" />
     <CLASSES>
       <root url="jar://$MAVEN_REPOSITORY$/org/hamcrest/hamcrest-core/2.2/hamcrest-core-2.2.jar!/" />
     </CLASSES>
