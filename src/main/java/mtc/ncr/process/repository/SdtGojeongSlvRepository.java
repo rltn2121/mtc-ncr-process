@@ -11,11 +11,11 @@ import java.sql.*;
 @Repository
 public class SdtGojeongSlvRepository {
 
-    public GojeongDto insert(String acno, String trxdt, String cur_c, int upmu_g, int aprv_sno, int trx_amt, int nujk_jan) throws SQLException {
+    public GojeongDto insert(String acno, String trxdt, String cur_c, int upmu_g, String aprv_sno, Double trx_amt, Double nujk_jan) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
         String sql1 = "insert into chl_sdt_gojeong_slv (acno, trxdt, cur_c, upmu_g, aprv_sno, trx_amt, nujk_jan) values(?, ?, ?, ?, ?, ?, ?);";
-        String sql2 = "insert into cor_sdt_gojeong_slv (acno, trxdt, cur_c, upmu_g, aprv_sno, trx_amt, nujk_jan) values(?, ?, ?, ?, ?, ?, ?);";
+        //String sql2 = "insert into cor_sdt_gojeong_slv (acno, trxdt, cur_c, upmu_g, aprv_sno, trx_amt, nujk_jan) values(?, ?, ?, ?, ?, ?, ?);";
         try {
             con = getConnection();
             pstmt = con.prepareStatement(sql1);
@@ -23,21 +23,21 @@ public class SdtGojeongSlvRepository {
             pstmt.setString(2, trxdt);
             pstmt.setString(3, cur_c);
             pstmt.setInt(4, upmu_g);
-            pstmt.setInt(5, aprv_sno);
-            pstmt.setInt(6, trx_amt);
-            pstmt.setInt(7, nujk_jan);
+            pstmt.setString(5, aprv_sno);
+            pstmt.setDouble(6, trx_amt);
+            pstmt.setDouble(7, nujk_jan);
             pstmt.executeUpdate();
 
-            pstmt = con.prepareStatement(sql2);
-            pstmt.setString(1, acno);
-            pstmt.setString(2, trxdt);
-            pstmt.setString(3, cur_c);
-            pstmt.setInt(4, upmu_g);
-            pstmt.setInt(5, aprv_sno);
-            pstmt.setInt(6, trx_amt);
-            pstmt.setInt(7, nujk_jan);
-            pstmt.executeUpdate();
-            return null;
+//            pstmt = con.prepareStatement(sql2);
+//            pstmt.setString(1, acno);
+//            pstmt.setString(2, trxdt);
+//            pstmt.setString(3, cur_c);
+//            pstmt.setInt(4, upmu_g);
+//            pstmt.setInt(5, aprv_sno);
+//            pstmt.setInt(6, trx_amt);
+//            pstmt.setInt(7, nujk_jan);
+//            pstmt.executeUpdate();
+            return new GojeongDto(0, acno, trxdt, cur_c, upmu_g, aprv_sno, trx_amt, nujk_jan);
         } catch (SQLException e) {
             log.error("db error", e);
             throw e;
