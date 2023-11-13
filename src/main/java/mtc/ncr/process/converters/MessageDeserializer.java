@@ -19,3 +19,4 @@ public class MessageDeserializer implements Deserializer<GojeongDto> {
         }
     }
 }
+
