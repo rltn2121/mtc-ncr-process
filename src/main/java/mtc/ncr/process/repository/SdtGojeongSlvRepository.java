@@ -32,11 +32,12 @@ public class SdtGojeongSlvRepository {
             close(con, pstmt, null);
         }
     }
-    public GojeongDto insert(String acno, String trxdt, String cur_c, int upmu_g, String aprv_sno, Double trx_amt, Double nujk_jan) throws SQLException {
+
+    public GojeongDto insert(String acno, String trxdt, String cur_c, int upmu_g, String aprv_sno, Double trx_amt, Double nujk_jan, String err_msg) throws SQLException {
+
         Connection con = null;
         PreparedStatement pstmt = null;
-        String sql1 = "insert into chl_sdt_gojeong_slv (acno, trxdt, cur_c, upmu_g, aprv_sno, trx_amt, nujk_jan) values(?, ?, ?, ?, ?, ?, ?);";
-        //String sql2 = "insert into cor_sdt_gojeong_slv (acno, trxdt, cur_c, upmu_g, aprv_sno, trx_amt, nujk_jan) values(?, ?, ?, ?, ?, ?, ?);";
+        String sql1 = "insert into chl_sdt_gojeong_slv (acno, trxdt, cur_c, upmu_g, aprv_sno, trx_amt, nujk_jan, err_msg) values(?, ?, ?, ?, ?, ?, ?, ?);";
         try {
             con = getConnection();
             pstmt = con.prepareStatement(sql1);
@@ -47,6 +48,7 @@ public class SdtGojeongSlvRepository {
             pstmt.setString(5, aprv_sno);
             pstmt.setDouble(6, trx_amt);
             pstmt.setDouble(7, nujk_jan);
+            pstmt.setString(8, err_msg);
             pstmt.executeUpdate();
 
 //            pstmt = con.prepareStatement(sql2);
@@ -58,7 +60,7 @@ public class SdtGojeongSlvRepository {
 //            pstmt.setInt(6, trx_amt);
 //            pstmt.setInt(7, nujk_jan);
 //            pstmt.executeUpdate();
-            return new GojeongDto(0, acno, trxdt, cur_c, upmu_g, aprv_sno, trx_amt, nujk_jan);
+            return new GojeongDto(0, acno, trxdt, cur_c, upmu_g, aprv_sno, trx_amt, nujk_jan, err_msg);
         } catch (SQLException e) {
             log.error("db error", e);
             throw e;
