@@ -10,7 +10,28 @@ import java.sql.*;
 @Slf4j
 @Repository
 public class SdtGojeongSlvRepository {
+    public int getMaxSno(String acno) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String sql = "select max(sno) from chl_sdt_gojeong_slv where acno = ?;";
 
+        try {
+            con = getConnection();
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, acno);
+            rs = pstmt.executeQuery();
+            while(rs.next()){
+                return rs.getInt("max");
+            }
+            return 0;
+        } catch (SQLException e) {
+            log.error("db error", e);
+            throw e;
+        } finally {
+            close(con, pstmt, null);
+        }
+    }
     public GojeongDto insert(String acno, String trxdt, String cur_c, int upmu_g, String aprv_sno, Double trx_amt, Double nujk_jan) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;

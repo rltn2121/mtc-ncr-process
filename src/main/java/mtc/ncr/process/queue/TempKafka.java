@@ -24,30 +24,20 @@ public class TempKafka {
     private final SdtGojeongSlvRepository repository = new SdtGojeongSlvRepository();
     public void produceMessage(GojeongDto dto) {
         log.info(" ----> 카프카 큐에 넣을 메시지 produce 하는중!!!");
-        kafkaTemplate.send("mtc.dbs.insertGojeong", "INSERT", dto);
+        kafkaTemplate.send("mtctopictest5", "INSERT", dto);
         log.info(" ----> 카프카 큐에 send 했음!!!");
     }
 
-    @KafkaListener(topics = "mtc.dbs.insertGojeong", groupId = "test3")
-    public void consumeMessage(@Payload GojeongDto data,
-                               @Header(name = KafkaHeaders.RECEIVED_KEY, required = false) String key,
-                               @Header(KafkaHeaders.RECEIVED_TOPIC) String topic,
-                               @Header(KafkaHeaders.RECEIVED_TIMESTAMP) long timestamp,
-                               @Header(KafkaHeaders.OFFSET) long offset) throws SQLException {
-
-        log.info("@@@@@ key: {}", key);
-        if("INSERT".equals(key)) {
-            String response = "consumer test";
-            repository.insert(data.getAcno(), data.getTrxdt(), data.getCurC(), data.getUpmuG(), data.getAprvSno(), data.getTrxAmt(), data.getNujkJan());
-
-            kafkaTemplate.send("mtc.dbs.insertGojeong", "INSERT", response)
-                    .whenCompleteAsync((result, ex) -> {
-                        if(ex == null) {
-                            log.info("카프카 큐에 send 성공!! {}", result.getProducerRecord().key());
-                        } else {
-                            log.error("카프카 큐에 send 실패...");
-                        }
-                    });
-        }
-    }
+//    @KafkaListener(topics = "mtctopictest5", groupId = "test3")
+//    public void consumeMessage(@Payload GojeongDto data,
+//                               @Header(name = KafkaHeaders.RECEIVED_KEY, required = false) String key,
+//                               @Header(KafkaHeaders.RECEIVED_TOPIC) String topic,
+//                               @Header(KafkaHeaders.RECEIVED_TIMESTAMP) long timestamp,
+//                               @Header(KafkaHeaders.OFFSET) long offset) throws SQLException {
+//
+//        log.info("@@@@@ key: {}", key);
+//        if("INSERT".equals(key)) {
+//            repository.insert(data.getAcno(), data.getTrxdt(), data.getCurC(), data.getUpmuG(), data.getAprvSno(), data.getTrxAmt(), data.getNujkJan());
+//        }
+//    }
 }
