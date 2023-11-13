@@ -33,7 +33,7 @@ public class SdtGojeongSlvRepository {
         }
     }
 
-    public GojeongDto insert(String acno, String trxdt, String cur_c, int upmu_g, String aprv_sno, Double trx_amt, Double nujk_jan, String err_msg) throws SQLException {
+    public GojeongDto insert(GojeongDto gojeongdto) throws SQLException {
 
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -41,26 +41,17 @@ public class SdtGojeongSlvRepository {
         try {
             con = getConnection();
             pstmt = con.prepareStatement(sql1);
-            pstmt.setString(1, acno);
-            pstmt.setString(2, trxdt);
-            pstmt.setString(3, cur_c);
-            pstmt.setInt(4, upmu_g);
-            pstmt.setString(5, aprv_sno);
-            pstmt.setDouble(6, trx_amt);
-            pstmt.setDouble(7, nujk_jan);
-            pstmt.setString(8, err_msg);
+            pstmt.setString(1, gojeongdto.getAcno());
+            pstmt.setString(2, gojeongdto.getTrxdt());
+            pstmt.setString(3, gojeongdto.getCurC());
+            pstmt.setInt(4, gojeongdto.getUpmuG());
+            pstmt.setString(5, gojeongdto.getAprvSno());
+            pstmt.setDouble(6, gojeongdto.getTrxAmt());
+            pstmt.setDouble(7, gojeongdto.getNujkJan());
+            pstmt.setString(8, gojeongdto.getErrMsg());
             pstmt.executeUpdate();
 
-//            pstmt = con.prepareStatement(sql2);
-//            pstmt.setString(1, acno);
-//            pstmt.setString(2, trxdt);
-//            pstmt.setString(3, cur_c);
-//            pstmt.setInt(4, upmu_g);
-//            pstmt.setInt(5, aprv_sno);
-//            pstmt.setInt(6, trx_amt);
-//            pstmt.setInt(7, nujk_jan);
-//            pstmt.executeUpdate();
-            return new GojeongDto(0, acno, trxdt, cur_c, upmu_g, aprv_sno, trx_amt, nujk_jan, err_msg);
+            return gojeongdto;
         } catch (SQLException e) {
             log.error("db error", e);
             throw e;
