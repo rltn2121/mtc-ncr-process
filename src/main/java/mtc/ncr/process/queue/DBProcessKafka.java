@@ -18,7 +18,7 @@ public class DBProcessKafka {
     private final static Logger log = LoggerFactory.getLogger(DBProcessKafka.class);
     private final SdtGojeongSlvRepository repository = new SdtGojeongSlvRepository();
 
-    @KafkaListener(topics = "토픽명")
+    @KafkaListener(topics = "mtc.dbs.insertGojeong")
     public void consumeMessage(@Payload GojeongDto data,
                                @Header(name = KafkaHeaders.RECEIVED_KEY, required = false) String key,
                                @Header(KafkaHeaders.RECEIVED_TOPIC) String topic,
