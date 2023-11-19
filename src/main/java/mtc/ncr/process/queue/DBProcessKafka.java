@@ -18,7 +18,7 @@ public class DBProcessKafka {
     private final static Logger log = LoggerFactory.getLogger(DBProcessKafka.class);
     private final SdtGojeongSlvRepository repository = new SdtGojeongSlvRepository();
 
-    @KafkaListener(topics = "mtc.dbs.insertGojeong")
+    @KafkaListener(topics = "mtc.dbs.insertChlGojeong", groupId = "amugurnahasam")
     public void consumeMessage(@Payload GojeongDto data,
                                @Header(name = KafkaHeaders.RECEIVED_KEY, required = false) String key,
                                @Header(KafkaHeaders.RECEIVED_TOPIC) String topic,
@@ -27,7 +27,8 @@ public class DBProcessKafka {
         log.info("listener --- [{}][{}][{}][{}][{}]", topic, timestamp, offset, key, data.toString());
         // sno 만들어서 넣기
         int nxtSno = repository.getMaxSno(data.getAcno()) + 1;
+        System.out.println("@@@@@ nxtSno: " + nxtSno);
         GojeongDto gojeongdto = new GojeongDto(nxtSno, data.getAcno(), data.getTrxdt(), data.getCurC(), data.getUpmuG(), data.getAprvSno(), data.getTrxAmt(), data.getNujkJan(), data.getErrMsg());
-        repository.insert(gojeongdto);
+        repository.insertChannel(gojeongdto);
     }
 }

@@ -33,22 +33,51 @@ public class SdtGojeongSlvRepository {
         }
     }
 
-    public GojeongDto insert(GojeongDto gojeongdto) throws SQLException {
-
+    public GojeongDto insertChannel(GojeongDto gojeongdto) throws SQLException {
+        System.out.println("@@@@ gojeongdto.getSno(): " + gojeongdto.getSno());
         Connection con = null;
         PreparedStatement pstmt = null;
-        String sql1 = "insert into chl_sdt_gojeong_slv (acno, trxdt, cur_c, upmu_g, aprv_sno, trx_amt, nujk_jan, err_msg) values(?, ?, ?, ?, ?, ?, ?, ?);";
+        String sql1 = "insert into chl_sdt_gojeong_slv  values(?, ?, ?, ?, ?, ?, ?, ?, ?);";
         try {
             con = getConnection();
             pstmt = con.prepareStatement(sql1);
-            pstmt.setString(1, gojeongdto.getAcno());
-            pstmt.setString(2, gojeongdto.getTrxdt());
-            pstmt.setString(3, gojeongdto.getCurC());
-            pstmt.setInt(4, gojeongdto.getUpmuG());
-            pstmt.setString(5, gojeongdto.getAprvSno());
-            pstmt.setDouble(6, gojeongdto.getTrxAmt());
-            pstmt.setDouble(7, gojeongdto.getNujkJan());
-            pstmt.setString(8, gojeongdto.getErrMsg());
+            pstmt.setInt(1, gojeongdto.getSno());
+            pstmt.setString(2, gojeongdto.getAcno());
+            pstmt.setString(3, gojeongdto.getTrxdt());
+            pstmt.setString(4, gojeongdto.getCurC());
+            pstmt.setInt(5, gojeongdto.getUpmuG());
+            pstmt.setString(6, gojeongdto.getAprvSno());
+            pstmt.setDouble(7, gojeongdto.getTrxAmt());
+            pstmt.setDouble(8, gojeongdto.getNujkJan());
+            pstmt.setString(9, gojeongdto.getErrMsg());
+            pstmt.executeUpdate();
+
+            return gojeongdto;
+        } catch (SQLException e) {
+            log.error("db error", e);
+            throw e;
+        } finally {
+            close(con, pstmt, null);
+        }
+    }
+
+    public GojeongDto insertCore(GojeongDto gojeongdto) throws SQLException {
+        System.out.println("@@@@ gojeongdto.getSno(): " + gojeongdto.getSno());
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        String sql1 = "insert into cor_sdt_gojeong_slv  values(?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        try {
+            con = getConnection();
+            pstmt = con.prepareStatement(sql1);
+            pstmt.setInt(1, gojeongdto.getSno());
+            pstmt.setString(2, gojeongdto.getAcno());
+            pstmt.setString(3, gojeongdto.getTrxdt());
+            pstmt.setString(4, gojeongdto.getCurC());
+            pstmt.setInt(5, gojeongdto.getUpmuG());
+            pstmt.setString(6, gojeongdto.getAprvSno());
+            pstmt.setDouble(7, gojeongdto.getTrxAmt());
+            pstmt.setDouble(8, gojeongdto.getNujkJan());
+            pstmt.setString(9, gojeongdto.getErrMsg());
             pstmt.executeUpdate();
 
             return gojeongdto;
